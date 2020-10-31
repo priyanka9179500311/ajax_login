@@ -14,7 +14,7 @@
 				<div class="col-6 offset-md-3">
 			
 			
-					<form action="" class="a_form">
+					<form  class="a_form">
 						<div class="form-group">
 							<label for="email">Email address:</label>
 							<input type="email" name="email" class="form-control" placeholder="Enter email" id="email">
@@ -35,6 +35,10 @@
 				</div>
 				
 			</div>
+			<?php
+				//echo $_SERVER['HTTP_HOST'];
+				//echo $_SERVER['SERVER_NAME'];
+			?>
 		</div>
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -54,14 +58,24 @@
 					//alert(pwd);
 					//$.ajax({name:value,name:value,....})
 					$.ajax({
-						url:'http://localhost/phpbasics8/ajax.php',
+					url:"http://<?php echo $_SERVER['HTTP_HOST']; ?>/phpbasics8/ajax.php",
 						data:{
+							action:'login',
 							eml:email,
 							pw:pwd
 						
 						},
 						success:function(result,status,xhr){
-							//console.log('ok');
+							console.log(result);
+							if(result == 'valid'){
+								//alert('welcome');
+							
+								//window.load('dashboard.php');
+								window.location = "http://<?php echo $_SERVER['HTTP_HOST'] ?>/phpbasics8/ajax.php";
+							}else{
+								alert('Invalid credentials');
+								$('#email').focus();
+							}
 						}
 					});
 				});
